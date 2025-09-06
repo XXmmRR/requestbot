@@ -9,6 +9,7 @@ class Settings(BaseModel):
     admin: int = config("ADMIN")
     DB_NAME: str = config("DB_NAME", default="")
     DB_PORT: str = config("DB_PORT", default="")
+    DB_PASSWORD: str = config("DB_PASSWORD", default="")
     DB_URL: str = config("DB_URL", default="")
     DB_USER: str = config("DB_USER", default="")
     

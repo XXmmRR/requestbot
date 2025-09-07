@@ -17,5 +17,7 @@ services:
       - db
     env_file:
       - .env
-
+    environment:
+      - PYTHONUNBUFFERED=1
+      
     restart: always

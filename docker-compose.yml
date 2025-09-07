@@ -17,6 +17,5 @@ services:
       - db
     env_file:
       - .env
-    entrypoint: ["/usr/local/bin/entrypoint.sh"]
 
     restart: always

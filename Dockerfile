@@ -1,15 +1,20 @@
-FROM 3.13.7-slim-bookworm
+FROM python:3.13.7-slim-bookworm
 
 WORKDIR /app
 
 COPY . /app
 
-COPY ./entrypoint.sh /usr/local/bin/entrypoint.sh
-RUN chmod +x /usr/local/bin/entrypoint.sh
+
+RUN apt-get update && \
+    apt-get install -y netcat-openbsd && \
+    rm -rf /var/lib/apt/lists/*
+
+COPY ./entrypoint.sh /app/entrypoint.sh
+RUN chmod +x /app/entrypoint.sh
 
 RUN pip install uv && \
-    uv pip install --no-cache-dir -r uv.lock && \
+    uv sync && \
     rm -rf /root/.cache/uv
 
-ENTRYPOINT ["entrypoint.sh"]
+ENTRYPOINT ["/app/entrypoint.sh"]
 CMD ["python", "main.py"]

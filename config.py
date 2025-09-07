@@ -5,8 +5,7 @@ from pydantic import BaseModel, validator
 class Settings(BaseModel):
     """Config files for bot."""
 
-    token: str = config("TOKEN", default="")
-    admin: int = config("ADMIN")
+    TOKEN: str = config("TOKEN", default="")
     DB_NAME: str = config("DB_NAME", default="")
     DB_PORT: str = config("DB_PORT", default="")
     DB_PASSWORD: str = config("DB_PASSWORD", default="")

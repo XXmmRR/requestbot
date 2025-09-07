@@ -3,7 +3,7 @@ name = "requestbot"
 version = "0.1.0"
 description = "Add your description here"
 readme = "README.md"
-requires-python = ">=3.11"
+requires-python = ">=3.13"
 dependencies = [
     "aiogram>=3.22.0",
     "alembic>=1.16.5",

@@ -1,0 +1,22 @@
+version: '3.12'
+
+services:
+  db:
+    image: postgres:16.10
+    volumes:
+      - ./pgdata:/var/lib/postgresql/data
+    env_file:
+      - .env
+
+    restart: always
+
+  bot:
+    build: .
+    command: python3 main.py
+    depends_on:
+      - db
+    env_file:
+      - .env
+    entrypoint: ["/usr/local/bin/entrypoint.sh"]
+
+    restart: always

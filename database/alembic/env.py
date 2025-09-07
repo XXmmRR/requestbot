@@ -5,8 +5,7 @@ from logging.config import fileConfig
 from sqlalchemy.engine import Connection
 from sqlalchemy.ext.asyncio import async_engine_from_config
 from alembic import context
-from database.ini import Base
-from config import CONFIG
+from database.ini import Base, connection_string
 from sqlalchemy import pool
 
 config = context.config
@@ -24,9 +23,8 @@ def do_run_migrations(connection: Connection) -> None:
 
 
 async def run_async_migrations() -> None:
-    db_url = f"postgresql+asyncpg://{CONFIG.DB_USER}:{CONFIG.DB_PASSWORD}@{CONFIG.DB_URL}:{CONFIG.DB_PORT}/{CONFIG.DB_NAME}"
     connectable = async_engine_from_config(
-        {'sqlalchemy.url': db_url},
+        {'sqlalchemy.url': connection_string},
         prefix="sqlalchemy.",
         poolclass=pool.NullPool,
     )

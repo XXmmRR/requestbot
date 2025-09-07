@@ -6,7 +6,7 @@ from sqlalchemy.orm import Mapped
 from sqlalchemy.orm import mapped_column
 from sqlalchemy.orm import relationship
 from database.ini import Base
-from database.mixins import TimeStampMixin
+from database.mixins.timestamp import TimeStampMixin
 
 
 class User(Base, TimeStampMixin):

@@ -9,9 +9,10 @@ from sqlalchemy import exc
 class Base(DeclarativeBase):
     pass
 
+connection_string = f"postgresql+asyncpg://{CONFIG.POSTGRES_USER}:{CONFIG.POSTGRES_PASSWORD}@{CONFIG.DB_HOST}:{CONFIG.DB_PORT}/{CONFIG.POSTGRES_DB}"
 
 engine = create_async_engine(
-    f"postgresql+asyncpg://{CONFIG.DB_USER}:{CONFIG.DB_PASSWORD}@{CONFIG.DB_URL}:{CONFIG.DB_PORT}/{CONFIG.DB_NAME}",
+    connection_string,
     echo=True,
 )
 

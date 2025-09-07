@@ -6,7 +6,7 @@ from aiogram import Bot, Dispatcher
 from aiogram.client.default import DefaultBotProperties
 from aiogram.enums import ParseMode
 from bot.handlers.start import router as StartRouter
-from bot.middlewares import CaptionAlbumMiddleware
+from bot.middlewares.album_middleware import CaptionAlbumMiddleware
 
 dp = Dispatcher()
 

@@ -6,11 +6,11 @@ class Settings(BaseModel):
     """Config files for bot."""
 
     TOKEN: str = config("TOKEN", default="")
-    DB_NAME: str = config("DB_NAME", default="")
-    DB_PORT: str = config("DB_PORT", default="")
-    DB_PASSWORD: str = config("DB_PASSWORD", default="")
-    DB_URL: str = config("DB_URL", default="")
-    DB_USER: str = config("DB_USER", default="")
+    POSTGRES_DB: str = config("POSTGRES_DB", default="")
+    POSTGRES_USER: str = config("POSTGRES_USER", default="")
+    POSTGRES_PASSWORD: str = config("POSTGRES_PASSWORD", default="")
+    DB_HOST: str = config("DB_HOST", default="localhost")
+    DB_PORT: str = config("DB_PORT", default="5432")
     
     admin_list: List[int] = []
 

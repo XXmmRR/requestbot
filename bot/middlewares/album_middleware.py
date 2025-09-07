@@ -9,6 +9,7 @@ class CaptionAlbumMiddleware(BaseMiddleware):
     """
     This middleware is for capturing document, photo and video groups
     """
+
     album_data: dict = {}
 
     def __init__(self, latency: Union[int, float] = 2):
@@ -16,10 +17,10 @@ class CaptionAlbumMiddleware(BaseMiddleware):
         super().__init__()
 
     async def __call__(
-            self,
-            handler: Callable[[Message, Dict[str, Any]], Awaitable[Any]],
-            event: Message,
-            data: Dict[str, Any]
+        self,
+        handler: Callable[[Message, Dict[str, Any]], Awaitable[Any]],
+        event: Message,
+        data: Dict[str, Any],
     ) -> Any:
         if event.document:
             document = event.document

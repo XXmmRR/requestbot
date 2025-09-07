@@ -10,8 +10,11 @@ from bot.middlewares.album_middleware import CaptionAlbumMiddleware
 
 dp = Dispatcher()
 
+
 async def main() -> None:
-    bot = Bot(token=CONFIG.TOKEN, default=DefaultBotProperties(parse_mode=ParseMode.HTML))
+    bot = Bot(
+        token=CONFIG.TOKEN, default=DefaultBotProperties(parse_mode=ParseMode.HTML)
+    )
     dp.message.middleware(CaptionAlbumMiddleware())
     dp.include_router(StartRouter)
     await dp.start_polling(bot)

@@ -2,6 +2,7 @@ from decouple import config
 from typing import List
 from pydantic import BaseModel, validator
 
+
 class Settings(BaseModel):
     """Config files for bot."""
 
@@ -11,13 +12,14 @@ class Settings(BaseModel):
     POSTGRES_PASSWORD: str = config("POSTGRES_PASSWORD", default="")
     DB_HOST: str = config("DB_HOST", default="localhost")
     DB_PORT: str = config("DB_PORT", default="5432")
-    
+
     admin_list: List[int] = []
 
-    @validator('admin_list', pre=True)
+    @validator("admin_list", pre=True)
     def parse_admin_list(cls, v):
         if isinstance(v, str):
-            return [int(x.strip()) for x in v.split(',') if x.strip()]
+            return [int(x.strip()) for x in v.split(",") if x.strip()]
         return v
+
 
 CONFIG = Settings(admin_list=config("ADMIN_LIST", default=""))

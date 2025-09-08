@@ -8,7 +8,7 @@ from aiogram.enums import ParseMode
 from bot.handlers.start import router as StartRouter
 from bot.middlewares.album_middleware import CaptionAlbumMiddleware
 from aiogram.fsm.storage.redis import RedisStorage
-from redis.asyncio.client import Redis 
+from redis.asyncio.client import Redis
 from loguru import logger
 from logger_config import setup_logging
 

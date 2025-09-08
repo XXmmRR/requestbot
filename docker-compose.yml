@@ -25,6 +25,8 @@ services:
       - redis
     env_file:
       - .env
+    volumes:
+      - logs_data:/app/logs 
     environment:
       - PYTHONUNBUFFERED=1
       - PYTHONDONTWRITEBYTECODE=1
@@ -33,3 +35,4 @@ services:
 volumes:
   pgdata:
   redis_data:
+  logs_data:

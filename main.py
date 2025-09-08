@@ -9,13 +9,17 @@ from bot.handlers.start import router as StartRouter
 from bot.middlewares.album_middleware import CaptionAlbumMiddleware
 from aiogram.fsm.storage.redis import RedisStorage
 from redis.asyncio.client import Redis 
-
-redis_client = Redis(host=CONFIG.REDIS_HOST, port=6379, db=0)
-
-dp = Dispatcher(storage=RedisStorage(redis_client))
+from loguru import logger
+from logger_config import setup_logging
 
 
 async def main() -> None:
+    redis_client = Redis(host=CONFIG.REDIS_HOST, port=6379, db=0)
+
+    dp = Dispatcher(storage=RedisStorage(redis_client))
+    setup_logging()
+
+    logger.info("Starting bot...")
     bot = Bot(
         token=CONFIG.TOKEN, default=DefaultBotProperties(parse_mode=ParseMode.HTML)
     )

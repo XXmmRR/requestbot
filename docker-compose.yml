@@ -4,20 +4,32 @@ services:
   db:
     image: postgres:16.10
     volumes:
-      - ./pgdata:/var/lib/postgresql/data
+      - pgdata:/var/lib/postgresql/data
     env_file:
       - .env
 
     restart: always
+
+  redis:
+    image: redis:8.2.1
+    volumes:
+      - redis_data:/data
+    env_file:
+      - .env
 
   bot:
     build: .
     command: python3 main.py
     depends_on:
       - db
+      - redis
     env_file:
       - .env
     environment:
       - PYTHONUNBUFFERED=1
       - PYTHONDONTWRITEBYTECODE=1
     restart: always
+
+volumes:
+  pgdata:
+  redis_data:

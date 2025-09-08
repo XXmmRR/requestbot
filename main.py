@@ -7,8 +7,11 @@ from aiogram.client.default import DefaultBotProperties
 from aiogram.enums import ParseMode
 from bot.handlers.start import router as StartRouter
 from bot.middlewares.album_middleware import CaptionAlbumMiddleware
+from aiogram.fsm.storage.redis import RedisStorage
+from redis.asyncio.client import Redis 
 
-dp = Dispatcher()
+redis_client = Redis(host='redis', port=6379, db=0)
+dp = Dispatcher(storage=RedisStorage(redis_client))
 
 
 async def main() -> None:

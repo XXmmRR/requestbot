@@ -30,3 +30,5 @@ async def get_db_session_dep() -> AsyncGenerator[AsyncSession, None]:
         except exc.SQLAlchemyError:
             await session.rollback()
             raise
+        
+session_factory = async_sessionmaker(engine, expire_on_commit=False)

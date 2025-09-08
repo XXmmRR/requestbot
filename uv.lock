@@ -552,6 +552,11 @@ wheels = [
     { url = "https://files.pythonhosted.org/packages/5a/73/9a0b2974dd9a3d50788d235f10c4d73c2efcd22926036309645fc2f0db0c/python_i18n-0.3.9-py3-none-any.whl", hash = "sha256:bda5b8d889ebd51973e22e53746417bd32783c9bd6780fd27cadbb733915651d", size = 13750, upload-time = "2020-08-26T14:31:26.266Z" },
 ]
 
+[package.optional-dependencies]
+yaml = [
+    { name = "pyyaml" },
+]
+
 [[package]]
 name = "pyyaml"
 version = "6.0.2"
@@ -592,7 +597,7 @@ dependencies = [
     { name = "psycopg2-binary" },
     { name = "python-decouple" },
     { name = "python-dotenv" },
-    { name = "python-i18n" },
+    { name = "python-i18n", extra = ["yaml"] },
     { name = "pyyaml" },
     { name = "redis" },
     { name = "sqlalchemy" },
@@ -609,7 +614,7 @@ requires-dist = [
     { name = "psycopg2-binary", specifier = ">=2.9.10" },
     { name = "python-decouple", specifier = ">=3.8" },
     { name = "python-dotenv", specifier = ">=1.1.1" },
-    { name = "python-i18n", specifier = ">=0.3.9" },
+    { name = "python-i18n", extras = ["yaml"], specifier = ">=0.3.9" },
     { name = "pyyaml", specifier = ">=6.0.2" },
     { name = "redis", specifier = ">=6.4.0" },
     { name = "sqlalchemy", specifier = ">=2.0.43" },

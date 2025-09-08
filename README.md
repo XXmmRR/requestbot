@@ -59,7 +59,7 @@ docker-compose up -d --build
     ```
 
 2.  **Применение миграций:**
-
+ так же они автоматически применяются через entrypoin
     ```bash
     docker-compose run --rm bot alembic upgrade head
     ```

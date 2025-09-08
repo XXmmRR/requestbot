@@ -12,7 +12,7 @@ class Settings(BaseModel):
     POSTGRES_PASSWORD: str = config("POSTGRES_PASSWORD", default="")
     DB_HOST: str = config("DB_HOST", default="localhost")
     DB_PORT: str = config("DB_PORT", default="5432")
-
+    REDIS_HOST: str = config("REDIS_HOST", default="redis")
     admin_list: List[int] = []
 
     @validator("admin_list", pre=True)

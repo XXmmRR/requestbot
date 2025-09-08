@@ -10,10 +10,12 @@ class Base(DeclarativeBase):
     pass
 
 
-connection_string = f"postgresql+asyncpg://{CONFIG.POSTGRES_USER}:{CONFIG.POSTGRES_PASSWORD}@{CONFIG.DB_HOST}:{CONFIG.DB_PORT}/{CONFIG.POSTGRES_DB}"
+def get_connection_string():
+    """Build the database connection string from config."""
+    return f"postgresql+asyncpg://{CONFIG.POSTGRES_USER}:{CONFIG.POSTGRES_PASSWORD}@{CONFIG.DB_HOST}:{CONFIG.DB_PORT}/{CONFIG.POSTGRES_DB}"
 
 engine = create_async_engine(
-    connection_string,
+    get_connection_string(),
     echo=True,
 )
 

@@ -133,8 +133,8 @@ class Event(Base):
     latency_ms: Mapped[Optional[int]] = mapped_column(BigInteger)
     error_code: Mapped[Optional[str]] = mapped_column(String, index=True)
     version: Mapped[str] = mapped_column(String)
-    metadata: Mapped[dict] = mapped_column(JSON)
-    
+    event_metadata: Mapped[dict] = mapped_column(JSON) 
+        
     user: Mapped["User"] = relationship(back_populates="events")
     entry: Mapped[Optional["Entry"]] = relationship(back_populates="events")
 

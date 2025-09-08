@@ -1,4 +1,4 @@
-from database.models import (
+from database.models.models import (
     User,
     Entry,
     Evidence,

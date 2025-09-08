@@ -24,7 +24,6 @@ class DbSessionMiddleware(BaseMiddleware):
     ) -> Any:
         async with self.session_pool() as session:
             try:
-                # Передаем сессию в данные хендлера
                 data["session"] = session
                 result = await handler(event, data)
                 

@@ -12,6 +12,7 @@ from redis.asyncio.client import Redis
 from loguru import logger
 from logger_config import setup_logging
 
+
 async def main() -> None:
     redis_client = Redis(host=CONFIG.REDIS_HOST, port=6379, db=0)
 

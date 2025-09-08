@@ -8,5 +8,5 @@ from database.models.models import (
     Watchlist,
     Event,
     Notification,
-    Referral
+    Referral,
 )

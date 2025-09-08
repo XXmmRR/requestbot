@@ -14,6 +14,7 @@ def get_connection_string():
     """Build the database connection string from config."""
     return f"postgresql+asyncpg://{CONFIG.POSTGRES_USER}:{CONFIG.POSTGRES_PASSWORD}@{CONFIG.DB_HOST}:{CONFIG.DB_PORT}/{CONFIG.POSTGRES_DB}"
 
+
 engine = create_async_engine(
     get_connection_string(),
     echo=True,
@@ -30,5 +31,6 @@ async def get_db_session_dep() -> AsyncGenerator[AsyncSession, None]:
         except exc.SQLAlchemyError:
             await session.rollback()
             raise
-        
+
+
 session_factory = async_sessionmaker(engine, expire_on_commit=False)

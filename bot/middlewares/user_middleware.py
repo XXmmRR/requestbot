@@ -5,17 +5,18 @@ from sqlalchemy.ext.asyncio import AsyncSession
 from database.ini import session_factory
 from database.models.user import User
 
+
 class UserMiddleware(BaseMiddleware):
     async def __call__(
         self,
         handler: Callable[[TelegramObject, Dict[str, Any]], Awaitable[Any]],
         event: TelegramObject,
-        data: Dict[str, Any]
+        data: Dict[str, Any],
     ) -> Any:
-        
+
         if "user" in data:
             return await handler(event, data)
-        
+
         try:
             tg_id = event.from_user.id
         except AttributeError:
@@ -32,7 +33,7 @@ class UserMiddleware(BaseMiddleware):
                 )
                 session.add(user)
                 await session.commit()
-            
+
             data["user"] = user
 
         return await handler(event, data)

@@ -5,6 +5,7 @@ from sqlalchemy.orm import Mapped, mapped_column, relationship
 from database.ini import Base
 from database.mixins.timestamp import TimeStampMixin
 
+
 class User(Base, TimeStampMixin):
     __tablename__ = "user_account"
     id: Mapped[int] = mapped_column(primary_key=True)
@@ -43,7 +44,9 @@ class Entry(Base, TimeStampMixin):
     region: Mapped[str] = mapped_column(String, index=True)
     created_by: Mapped[int] = mapped_column(ForeignKey("user_account.id"), index=True)
     status: Mapped[str] = mapped_column(String, index=True)
-    merged_into: Mapped[Optional[int]] = mapped_column(ForeignKey("entries.entry_id"), index=True)
+    merged_into: Mapped[Optional[int]] = mapped_column(
+        ForeignKey("entries.entry_id"), index=True
+    )
 
     created_by_user: Mapped["User"] = relationship(back_populates="entries")
     evidences: Mapped[List["Evidence"]] = relationship(back_populates="entry")
@@ -59,7 +62,7 @@ class Evidence(Base):
     entry_id: Mapped[int] = mapped_column(ForeignKey("entries.entry_id"), index=True)
     file_ref: Mapped[str] = mapped_column(String, index=True)
     kind: Mapped[str] = mapped_column(String, index=True)
-    
+
     entry: Mapped["Entry"] = relationship(back_populates="evidences")
 
 
@@ -70,9 +73,11 @@ class Ticket(Base, TimeStampMixin):
     submitted_by: Mapped[int] = mapped_column(ForeignKey("user_account.id"), index=True)
     status: Mapped[str] = mapped_column(String, index=True)
     reason: Mapped[str] = mapped_column(String)
-    moderator_id: Mapped[Optional[int]] = mapped_column(ForeignKey("user_account.id"), index=True)
+    moderator_id: Mapped[Optional[int]] = mapped_column(
+        ForeignKey("user_account.id"), index=True
+    )
     notes: Mapped[str] = mapped_column(String)
-    
+
     entry: Mapped["Entry"] = relationship(back_populates="tickets")
     submitted_by_user: Mapped["User"] = relationship(foreign_keys=[submitted_by])
     moderator: Mapped[Optional["User"]] = relationship(foreign_keys=[moderator_id])
@@ -85,7 +90,7 @@ class Query(Base, TimeStampMixin):
     entry_id: Mapped[int] = mapped_column(ForeignKey("entries.entry_id"), index=True)
     result_level: Mapped[str] = mapped_column(String, index=True)
     charged: Mapped[bool] = mapped_column()
-    
+
     user: Mapped["User"] = relationship(back_populates="queries")
     entry: Mapped["Entry"] = relationship(back_populates="queries")
 
@@ -105,7 +110,7 @@ class Payment(Base):
     status: Mapped[str] = mapped_column(String, index=True)
     order_id: Mapped[str] = mapped_column(String, index=True)
     paid_at: Mapped[str] = mapped_column(String, index=True)
-    
+
     user: Mapped["User"] = relationship(back_populates="payments")
 
 
@@ -115,7 +120,7 @@ class Watchlist(Base):
     user_id: Mapped[int] = mapped_column(ForeignKey("user_account.id"), index=True)
     entry_id: Mapped[int] = mapped_column(ForeignKey("entries.entry_id"), index=True)
     created_at: Mapped[str] = mapped_column(String, index=True)
-    
+
     user: Mapped["User"] = relationship(back_populates="watchlist_items")
     entry: Mapped["Entry"] = relationship(back_populates="watchlist_items")
 
@@ -127,14 +132,16 @@ class Event(Base):
     type: Mapped[str] = mapped_column(String, index=True)
     ts: Mapped[str] = mapped_column(String, index=True)
     session_id: Mapped[Optional[str]] = mapped_column(String, index=True)
-    entry_id: Mapped[Optional[int]] = mapped_column(ForeignKey("entries.entry_id"), index=True)
+    entry_id: Mapped[Optional[int]] = mapped_column(
+        ForeignKey("entries.entry_id"), index=True
+    )
     amount: Mapped[Optional[float]] = mapped_column(Float)
     order_id: Mapped[Optional[str]] = mapped_column(String, index=True)
     latency_ms: Mapped[Optional[int]] = mapped_column(BigInteger)
     error_code: Mapped[Optional[str]] = mapped_column(String, index=True)
     version: Mapped[str] = mapped_column(String)
-    event_metadata: Mapped[dict] = mapped_column(JSON) 
-        
+    event_metadata: Mapped[dict] = mapped_column(JSON)
+
     user: Mapped["User"] = relationship(back_populates="events")
     entry: Mapped[Optional["Entry"]] = relationship(back_populates="events")
 
@@ -148,7 +155,7 @@ class Notification(Base):
     status: Mapped[str] = mapped_column(String, index=True)
     fail_reason: Mapped[Optional[str]] = mapped_column(String)
     sent_at: Mapped[str] = mapped_column(String, index=True)
-    
+
     user: Mapped["User"] = relationship(back_populates="notifications")
 
 
@@ -159,6 +166,6 @@ class Referral(Base, TimeStampMixin):
     invitee_id: Mapped[int] = mapped_column(ForeignKey("user_account.id"), index=True)
     rewarded_at: Mapped[str] = mapped_column(String, index=True)
     status: Mapped[str] = mapped_column(String, index=True)
-    
+
     inviter: Mapped["User"] = relationship(foreign_keys=[inviter_id])
     invitee: Mapped["User"] = relationship(foreign_keys=[invitee_id])

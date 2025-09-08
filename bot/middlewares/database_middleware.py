@@ -9,9 +9,10 @@ from sqlalchemy import exc
 class DbSessionMiddleware(BaseMiddleware):
     """
     Мидлварь, которая предоставляет сессию базы данных в `data` хендлера.
-    
+
     Сессия автоматически коммитится или откатывается в зависимости от результата выполнения хендлера.
     """
+
     def __init__(self, session_pool: async_sessionmaker):
         super().__init__()
         self.session_pool = session_pool
@@ -26,7 +27,7 @@ class DbSessionMiddleware(BaseMiddleware):
             try:
                 data["session"] = session
                 result = await handler(event, data)
-                
+
                 await session.commit()
                 return result
             except exc.SQLAlchemyError:

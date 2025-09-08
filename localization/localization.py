@@ -20,9 +20,8 @@ def get_translation(key, lang="ru", **kwargs):
     Получить перевод для ключа
     """
     i18n.set("locale", lang)
-    
+
     translation = i18n.t(key, **kwargs)
-    
+
     logger.info(f"Translation for '{key}': '{translation}'")
     return translation
-        
